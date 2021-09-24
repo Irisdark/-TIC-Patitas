@@ -36,8 +36,6 @@ class Rol(db.Model):
 
 
 
-
-
 class Mascota(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	nombre = db.Column(db.Unicode(40))
