@@ -109,7 +109,8 @@ def crear_mascota():
 				celular_contacto = datos_mascota['celular_contacto'],
 				telefono_contacto = datos_mascota['telefono_contacto'],
 				estado_mascota = datos_mascota['estado_mascota'],
-				estado_publicacion = 'P'
+				estado_publicacion = 'P',
+				usuario_publicacion = current_user.id
 			)
 		db.session.add(mascota)
 		db.session.commit()
