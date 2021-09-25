@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, Response, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from sqlalchemy.inspection import inspect
@@ -25,14 +25,23 @@ def load_user(usuario_id):
 
 
 @app.route('/login', methods=['POST'])
-def index():
-	datos_usuario = request.get_json()
-	usuario = Usuario.query.filter_by(username=datos_usuario['username']).first()
-	if usuario and usuario.password == datos_usuario['password']:
-		login_user(usuario)
-		return 'Ahora estás loggeado! :)'
-	else:
-		return 'Nombre de usuario o contraseña incorrecta.'
+def login():
+	try:
+		username_parm = request.form['username']
+		password_parm = request.form['password']
+		usuario = Usuario.query.filter_by(username=username_parm).first()
+		if usuario and usuario.password == password_parm:
+			login_user(usuario)
+			return 'Ahora estás loggeado! :)'
+		else:
+			return render_template('login.html', error='Nombre de usuario o contraseña incorrecta.')
+	except:
+		return render_template('login.html', error='Algo ha salido mal.')
+
+@app.route('/login', methods=['GET'])
+def mostrar_login():
+   return render_template('login.html')
+
 
 @app.route('/logout')
 @login_required
@@ -142,6 +151,34 @@ def mostrar_imagen(id):
 	return Response(img.img, mimetype=img.mimetype)
 
 
+
+#####################################################################################################################
+## Manejo de errores
+#####################################################################################################################
+@app.errorhandler(500)
+def internal_server_error(e):
+    content = "Internal Server Error: " + str(e) + "<br>"
+    content += error_info(e)
+    return content, 500
+
+
+@app.errorhandler(400)
+def bad_request(e):
+    content = "Bad Request: " + str(e) + "<br>"
+    content += error_info(e)
+    return content, 400
+
+@app.errorhandler(400)
+def bad_request(e):
+    content = "Not found" + str(e) + "<br>"
+    content += error_info(e)
+    return content, 400
+
+
+
+#####################################################################################################################
+## Servicio
+#####################################################################################################################
 
 if __name__ == '__main__':
     app.run()

@@ -7,7 +7,9 @@ import enum
 from patitas import app
 from .enums import Especie, Sexo, Edad, Tamanio, Pelaje, Orejas, EstadoMascota, EstadoPublicacion
 
+
 db = SQLAlchemy(app)
+
 
 class Serializer(object):
     def serialize(self):
@@ -20,6 +22,7 @@ class Usuario(UserMixin, db.Model):
 	email = db.Column(db.String(200), unique=True)
 	password = db.Column(db.String(32))
 	rol_id = db.Column(db.Integer, db.ForeignKey('rol.id'))
+	publicaciones = db.relationship('Mascota', backref='mascota', lazy='dynamic')
 	@property
 	def serialize(self):
 		rol = Rol.query.filter_by(id=self.rol_id).first()
@@ -58,7 +61,9 @@ class Mascota(db.Model):
 	estado_mascota = db.Column(db.Enum(EstadoMascota), nullable=False)
 	estado_publicacion = db.Column(db.Enum(EstadoPublicacion))
 	fecha_publicacion = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-	
+	usuario_publicacion = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+	fotos = db.relationship('ImagenMascota', backref='mascota', lazy='dynamic')
+
 	@property
 	def serialize(self):
 		return {
@@ -91,7 +96,42 @@ class ImagenMascota(db.Model):
 	img = db.Column(db.Text, unique=True, nullable=False)
 	nombre = db.Column(db.Text, nullable=False)
 	mimetype = db.Column(db.Text, nullable=False)
+	mascota_foto = db.Column(db.Integer, db.ForeignKey('mascota.id'))
+
+
+
+
+## Inicializar datos (Migrations)
+def insertarDatosIniciales():
+	try:
+		if not(datos_init):
+			# ROLES
+			rol_auxiliar = Rol(tipo_rol='Administrador')
+			db.session.add(rol_auxiliar)
+			rol_auxiliar = Rol(tipo_rol='Común')
+			db.session.add(rol_auxiliar)
+			rol_auxiliar = Rol(tipo_rol='Desactivado')
+			db.session.add(rol_auxiliar)
+
+			# USUARIOS
+			usuario_auxiliar = Usuario(username='admin', email='admin@patitas.com', password='admin', rol_id = 1)
+			db.session.add(usuario_auxiliar)
+			usuario_auxiliar = Usuario(username='comun', email='comun@patitas.com', password='comun', rol_id = 1)
+			db.session.add(usuario_auxiliar)
+			
+			# MASCOTAS
+
+			# COMMIT
+			db.session.commit()
+			datos_init = True
+			print('Datos iniciados.')
+	except:
+		print('')
+
 
 
 
 db.create_all()
+insertarDatosIniciales()
+
+	
