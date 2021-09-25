@@ -87,6 +87,7 @@ def ver_usuario(username):
 #####################################################################################################################
 
 @app.route('/mascotas', methods=['POST'])
+@login_required
 def crear_mascota():
 	try:
 		datos_mascota = request.get_json()

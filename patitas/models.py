@@ -104,27 +104,71 @@ class ImagenMascota(db.Model):
 ## Inicializar datos (Migrations)
 def insertarDatosIniciales():
 	try:
-		if not(datos_init):
-			# ROLES
-			rol_auxiliar = Rol(tipo_rol='Administrador')
-			db.session.add(rol_auxiliar)
-			rol_auxiliar = Rol(tipo_rol='Común')
-			db.session.add(rol_auxiliar)
-			rol_auxiliar = Rol(tipo_rol='Desactivado')
-			db.session.add(rol_auxiliar)
+		# ROLES
+		rol_auxiliar = Rol(tipo_rol='Administrador')
+		db.session.add(rol_auxiliar)
+		rol_auxiliar = Rol(tipo_rol='Común')
+		db.session.add(rol_auxiliar)
+		rol_auxiliar = Rol(tipo_rol='Desactivado')
+		db.session.add(rol_auxiliar)
 
-			# USUARIOS
-			usuario_auxiliar = Usuario(username='admin', email='admin@patitas.com', password='admin', rol_id = 1)
-			db.session.add(usuario_auxiliar)
-			usuario_auxiliar = Usuario(username='comun', email='comun@patitas.com', password='comun', rol_id = 1)
-			db.session.add(usuario_auxiliar)
-			
-			# MASCOTAS
+		# USUARIOS
+		usuario_auxiliar = Usuario(username='admin', email='admin@patitas.com', password='admin', rol_id = 1)
+		db.session.add(usuario_auxiliar)
+		usuario_auxiliar = Usuario(username='comun', email='comun@patitas.com', password='comun', rol_id = 1)
+		db.session.add(usuario_auxiliar)
+		
+		# MASCOTAS
+		mascota_auxiliar = Mascota(
+				nombre = 'Chicho',
+				especie = 'P',
+				sexo = 'M',
+				color = 'Negro',
+				edad = 'A',
+				tamanio = 'C',
+				oreja = 'C',
+				pelaje = 'L',
+				otra_informacion_mascota = 'Perro adulto en adopción',
+				departamento = 'M',
+				localidad = '1234',
+				calle = 'Av. 18 de Julio',
+				mas_informacion_encuentro = '',
+				nombre_contacto = 'Administrador',
+				celular_contacto = '091000000',
+				telefono_contacto = '29010000',
+				estado_mascota = 'A',
+				estado_publicacion = 'P',
+				usuario_publicacion = 1
+		)
+		db.session.add(mascota_auxiliar)
 
-			# COMMIT
-			db.session.commit()
-			datos_init = True
-			print('Datos iniciados.')
+		mascota_auxiliar = Mascota(
+				nombre = 'Pocha',
+				especie = 'G',
+				sexo = 'H',
+				color = 'Gris',
+				edad = 'A',
+				tamanio = 'C',
+				oreja = 'C',
+				pelaje = 'C',
+				otra_informacion_mascota = 'Gata perdida',
+				departamento = 'F',
+				localidad = '222',
+				calle = 'Florida',
+				mas_informacion_encuentro = 'Se encontró hace 2 días',
+				nombre_contacto = 'Administrador',
+				celular_contacto = '091000000',
+				telefono_contacto = '29010000',
+				estado_mascota = 'E',
+				estado_publicacion = 'P',
+				usuario_publicacion = 1
+		)
+		db.session.add(mascota_auxiliar)
+
+
+		# COMMIT
+		db.session.commit()
+		print('Datos iniciados.')
 	except:
 		print('')
 
