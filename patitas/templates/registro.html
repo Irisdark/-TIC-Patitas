@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/formulario.css">
+    <title>Patitas</title>
+</head>
+<body>
+<main>
+    <header class="header">
+        <nav class="navigator">
+            <ul>
+                <li><a href="inicio">INICIO</a></li>
+                <li><a href="encuentra">ENCUENTRA TU MASCOTA</a></li>
+                <li><a href="conocenos">CONOCENOS</a></li>
+                <div class="nav__logo">
+                    <img src="static/img/logo.svg" height="50px" alt="logo de Patitas">
+                </div>
+                <li><a href="adopta">ADOPTA UN AMIGO</a></li>
+                <li><a href="registro">CREA TU CUENTA</a></li>
+                <li><a href="login">INICIO DE SESION</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="formulario">
+        <section class="formulario__container">
+            <div class="formulario__container--titulo"><h2>Registro de mascota</h2></div>
+            <form class="formulario__container--form" action="login.html" method="post" autocomplete="on">
+                <div class="formulario__container--form-registro">
+                    <span>Hola, antes de que nada que es lo ¿que es lo que desea registrar?</span>
+                    <label for="registro">
+                        <select name="registro">
+                            <option>Adopción</option>
+                            <option>Encontrados</option>
+                        </select>
+                    </label>
+                </div>
+                <div div class="formulario__container--form-input">
+                    <h3>Datos básicos</h3>
+                    <label for="nombre">
+                        <input aria-label="Nombre" class="input" type="text" placeholder="Nombre">
+                    </label>
+                    <label for="especie">
+                        <select name="especie">
+                            <option>Gato</option>
+                            <option>Perro</option>
+                        </select>
+                    </label>
+                    <label for="sexo">
+                        <select name="sexo">
+                            <option>Macho</option>
+                            <option>Hembra</option>
+                        </select>
+                    </label>
+                    <label for="color">
+                        <input aria-label="Color" class="input" type="text" placeholder="Color">
+                    </label>
+                    <label for="edad">
+                        <input aria-label="Edad" class="input" type="text" placeholder="Edad">
+                    </label>
+                    <label for="tamaño">
+                        <input aria-label="Tamaño" class="input" type="text" placeholder="Tamaño">
+                    </label>
+                    <label for="orejas">
+                        <h3>Datos especificos</h3>
+                        <input aria-label="Orejas" class="input" type="text" placeholder="Orejas">
+                    </label>
+                    <label for="pelaje">
+                        <input aria-label="Pelaje" class="input" type="text" placeholder="Pelaje">
+                    </label>
+                    <label for="manchas">
+                        <input aria-label="Manchas" class="input" type="text" placeholder="Manchas">
+                    </label>
+                    <label for="informacion">
+                        <input aria-label="Informacion" class="input" type="text" placeholder="Mas Información">
+                    </label>
+                    <label for="lugar">
+                        <h3>Datos de encuentro</h3>
+                        <input aria-label="Lugar" class="input" type="text" placeholder="Lugar">
+                    </label>
+                    <label for="dia">
+                        <input type="date" id="dia" />
+                    </label>
+                    <label for="horario">
+                        <input type="time" id="hora" />
+                    </label>
+                    <label for="informacion">
+                        <input aria-label="Informacion" class="input" type="text" placeholder="Mas Información">
+                    </label>
+                    <label for="Nombre">
+                        <h3>Datos de contacto</h3>
+                        <input type="text" class="input" placeholder="Nombre"/>
+                    </label>
+                    <label for="Contacto">
+                        <input type="text" class="input" placeholder="Contacto"/>
+                    </label>
+                </div>
+                <div class="formulario__container--form-button">
+                    <input class="button" type="submit" value="Finalizar"></button>
+                </div>
+                <p>
+                    Estos datos serán publicos para que otras personas se puedan contactar con usted. 
+                </p>
+            </form>
+        </section>
+    </section>
+</main>
+</body>
+</html>

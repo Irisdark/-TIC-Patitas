@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response, render_template
+from flask import Flask, request, jsonify, redirect, url_for, Response, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from sqlalchemy.inspection import inspect
@@ -40,7 +40,11 @@ def login():
 
 @app.route('/login', methods=['GET'])
 def mostrar_login():
-   return render_template('login.html')
+	try:
+		if current_user.username:
+			return redirect(url_for('inicio'))
+	except:
+		return render_template('login.html')
 
 
 @app.route('/logout')
@@ -49,10 +53,37 @@ def logout():
 	logout_user()
 	return 'Ahora estás deslogueado :('
 
+
+
+#####################################################################################################################
+## Vistas de NAVEGACION
+#####################################################################################################################
+
 @app.route('/home')
 @login_required
 def home():
 	return 'El usuario actual es: '+ current_user.username
+
+
+@app.route('/inicio')
+def inicio():
+    return render_template('inicio.html')
+
+@app.route('/encuentra')
+def encuentra():
+    return render_template('encuentra.html')
+
+@app.route('/conocenos')
+def conocenos():
+    return render_template('conocenos.html')
+
+@app.route('/adopta')
+def adopta():
+    return render_template('encuentra.html')
+
+@app.route('/registro')
+def registro():
+    return render_template('registro.html')
 
 
 #####################################################################################################################
@@ -157,25 +188,34 @@ def mostrar_imagen(id):
 #####################################################################################################################
 ## Manejo de errores
 #####################################################################################################################
-@app.errorhandler(500)
-def internal_server_error(e):
-    content = "Internal Server Error: " + str(e) + "<br>"
-    content += error_info(e)
-    return content, 500
+##@app.errorhandler(500)
+##def internal_server_error(e):
+##    content = "Internal Server Error: " + str(e) + "<br>"
+##    content += error_info(e)
+##    return content, 500
 
 
-@app.errorhandler(400)
-def bad_request(e):
-    content = "Bad Request: " + str(e) + "<br>"
-    content += error_info(e)
-    return content, 400
+##@app.errorhandler(400)
+##def bad_request(e):
+##    content = "Bad Request: " + str(e) + "<br>"
+##    content += error_info(e)
+##    return content, 400
 
-@app.errorhandler(400)
-def bad_request(e):
-    content = "Not found" + str(e) + "<br>"
-    content += error_info(e)
-    return content, 400
+##@app.errorhandler(404)
+##def not_found(e):
+ ##   content = "Not found" + str(e) + "<br>"
+##    content += error_info(e)
+##    return content, 404
 
+
+##@app.errorhandler(401)
+##def unauthorized(e):
+##    content = "Not autorized" + e + "<br>"
+##    content += error_info(e)
+ ##   return content, 401
+
+##def error_info(e):
+##	return e
 
 
 #####################################################################################################################

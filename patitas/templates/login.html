@@ -1,75 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
-
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-.container {
-  padding: 16px;
-}
-
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/login.css">
+    <title>Patitas</title>
 </head>
 <body>
-
-<h2>Ingreso</h2>
-
-<form action="/login" method="POST">
-
-  <div class="container">
-    <label for="username"><b>Nombre de usuario</b></label>
-    <input type="text" placeholder="Ingreso nombre de usuario" name="username" required>
-
-    <label for="password"><b>Contraseña</b></label>
-    <input type="password" placeholder="Ingrese contraseña" name="password" required>
-    <span style="color: red;">{{ error }}</span>    
-    <button type="submit">Ingresar</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Recuérdame
-    </label>
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancelar</button>
-    <span class="psw">Olvidó su <a href="#">contraseña?</a></span>
-  </div>
-</form>
-
+<main>
+    <header class="header">
+        <nav class="navigator">
+            <ul>
+                <li><a href="inicio">INICIO</a></li>
+                <li><a href="encuentra">ENCUENTRA TU MASCOTA</a></li>
+                <li><a href="conocenos">CONOCENOS</a></li>
+                <div class="nav__logo">
+                    <img src="static/img/logo.svg" height="50px" alt="logo de Patitas">
+                </div>
+                <li><a href="adopta">ADOPTA UN AMIGO</a></li>
+                <li><a href="registro">CREA TU CUENTA</a></li>
+                <li><a href="login">INICIO DE SESION</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="login">
+        <section class="login__container">
+            <div class="login__container--titulo"><h2>Ingreso de usuario</h2></div>
+            <form class="login__container--form" action="/login" method="post" autocomplete="on">
+                <div div class="login__container--form-input">
+                    <input type="text" class="input" placeholder="Ingreso nombre de usuario" name="username" required>
+                    <input type="password" class="input" placeholder="Ingrese contraseña" name="password" required>   
+                </div>
+                <div class="login__container--remember-me">
+                    <input type="radio" name="radio" id="radio" value="radio">  Recuérdame
+                    <a href="/">Olvidé mi contraseña</a>
+                </div>
+                <div class="login__container--form-button">
+                    <button class="button">Iniciar sesión</button>
+                </div>
+            </form>
+            {% if error %}
+            <p><strong>Error:</strong>{{ error }}</p>
+            {% endif %}
+            <section class="login__container--social-media">
+                <button><img src="static/img/google.svg" alt="Google">Inicia sesión con Google</button>
+                <button><img src="static/img/facebook.svg" alt="Facebook">Inicia sesión con Facebook</button>
+                <button><img src="static/img/twitter.svg" alt="Twitter">Inicia sesión con Twitter</button>
+            </section>
+            <p class="login__container--register">¿Aún no tienes ninguna cuenta? <a href="login"> Regístrate</a></p>
+        </section>
+    </section>
+</main>
 </body>
 </html>
